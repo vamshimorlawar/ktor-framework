@@ -12,9 +12,16 @@ object Student: Table() {
     override val primaryKey = PrimaryKey(id)
 }
 
+//  TODO(Is it good practice to create multiple data classes to define the different return data types?)
 @Serializable
 data class StudentType(
     val id: Int,
+    val name: String,
+    val school: String
+)
+
+@Serializable
+data class InputStudentType(
     val name: String,
     val school: String
 )

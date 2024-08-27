@@ -1,5 +1,7 @@
 package example.com.plugins
 
+import example.com.repositories.StudentRepository
+import example.com.repositories.StudentRepositoryImpl
 import example.com.services.StudentService
 import example.com.services.StudentServiceImpl
 import io.ktor.server.application.*
@@ -15,5 +17,6 @@ fun Application.configureKoin() {
 }
 
 val studentModule = module {
-    single<StudentService> { StudentServiceImpl() }
+    single<StudentRepository> {StudentRepositoryImpl()}
+    single<StudentService> { StudentServiceImpl(get()) }
 }

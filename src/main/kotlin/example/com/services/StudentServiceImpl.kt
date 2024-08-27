@@ -6,12 +6,11 @@ import example.com.repositories.StudentRepository
 import io.ktor.server.plugins.*
 
 class StudentServiceImpl(private val repository: StudentRepository) : StudentService {
-
     override suspend fun getAllStudents(): List<StudentType> {
         return repository.getAllStudents()
     }
 
-    override suspend fun getStudentById(id: Int?): StudentType? {
+    override suspend fun getStudentById(id: Int?): StudentType {
         if (id == null) {
             throw BadRequestException("Invalid ID for a student received")
         }
@@ -23,7 +22,7 @@ class StudentServiceImpl(private val repository: StudentRepository) : StudentSer
         }
     }
 
-    override suspend fun getStudentByName(name: String): StudentType? {
+    override suspend fun getStudentByName(name: String): StudentType {
         val student = repository.getStudentByName(name)
         if (student == null) {
             throw NotFoundException("Student with Name $name doesn't exist")
@@ -32,7 +31,7 @@ class StudentServiceImpl(private val repository: StudentRepository) : StudentSer
         }
     }
 
-    override suspend fun getStudentBySchool(school: String): StudentType? {
+    override suspend fun getStudentBySchool(school: String): StudentType {
         val student = repository.getStudentBySchool(school)
         if (student == null) {
             throw NotFoundException("Student with School $school doesn't exist")
@@ -41,7 +40,7 @@ class StudentServiceImpl(private val repository: StudentRepository) : StudentSer
         }
     }
 
-    override suspend fun addStudent(newStudent: InputStudentType): StudentType? {
+    override suspend fun addStudent(newStudent: InputStudentType): StudentType {
         val student = repository.addStudent(newStudent)
         if(student == null){
 //            TODO(What exception should be thrown here? Internal Server Error)

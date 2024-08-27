@@ -2,7 +2,6 @@ package example.com.routes
 
 import example.com.models.InputStudentType
 import example.com.models.Response
-import example.com.models.StudentType
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -19,6 +18,7 @@ fun Routing.studentRoutes() {
             call.respond(HttpStatusCode.OK, Response("All students data", students))
         }
 
+//        TODO(Is it a good practice to add api endpoints withID withName in id/{id}? Or Query param is better ?id={id})
         get("/id/{id}") {
             val id = call.parameters["id"]
             if (id == null) {
@@ -29,19 +29,19 @@ fun Routing.studentRoutes() {
             call.respond(HttpStatusCode.OK, Response("Student by id = $id", student))
         }
 
-        get("/name/{name}"){
+        get("/name/{name}") {
             val name = call.parameters["name"]
-            if(name==null){
+            if (name == null) {
                 call.respond(HttpStatusCode.BadRequest, "name cannot be null")
                 return@get
             }
             val student = studentService.getStudentByName(name)
-            call.respond(HttpStatusCode.OK, Response<StudentType>("Student by name = $name", student))
+            call.respond(HttpStatusCode.OK, Response("Student by name = $name", student))
         }
 
-        get("/school/{school}"){
+        get("/school/{school}") {
             val school = call.parameters["school"]
-            if(school == null){
+            if (school == null) {
                 call.respond(HttpStatusCode.OK, "school name cannot be null")
                 return@get
             }
@@ -57,11 +57,11 @@ fun Routing.studentRoutes() {
             call.respond(HttpStatusCode.OK, Response("New Student details added", student))
         }
 
-        put("/{id}"){
+        put("/{id}") {
             val id = call.parameters["id"]
             val updatedStudent = call.receive<InputStudentType>()
 
-            if(id == null){
+            if (id == null) {
                 call.respond(HttpStatusCode.BadRequest, "name cannot be null")
                 return@put
             }
@@ -79,9 +79,9 @@ fun Routing.studentRoutes() {
             call.respond(HttpStatusCode.OK, "Deleted student with id $id")
         }
 
-        delete("/name/{name}"){
+        delete("/name/{name}") {
             val name = call.parameters["name"]
-            if(name==null){
+            if (name == null) {
                 call.respond(HttpStatusCode.BadRequest, "name cannot be null")
                 return@delete
             }
@@ -89,9 +89,9 @@ fun Routing.studentRoutes() {
             call.respond(HttpStatusCode.OK, "Deleted student with name $name")
         }
 
-        delete("/school/{school}"){
+        delete("/school/{school}") {
             val school = call.parameters["school"]
-            if(school == null){
+            if (school == null) {
                 call.respond(HttpStatusCode.OK, "school name cannot be null")
                 return@delete
             }

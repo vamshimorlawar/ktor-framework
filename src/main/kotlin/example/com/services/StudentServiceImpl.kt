@@ -1,6 +1,5 @@
 package example.com.services
 
-import example.com.models.InputStudentType
 import example.com.models.StudentType
 import example.com.repositories.StudentRepository
 import io.ktor.server.plugins.*
@@ -40,7 +39,7 @@ class StudentServiceImpl(private val repository: StudentRepository) : StudentSer
         }
     }
 
-    override suspend fun addStudent(newStudent: InputStudentType): StudentType {
+    override suspend fun addStudent(newStudent: StudentType): StudentType {
         val student = repository.addStudent(newStudent)
         if (student == null) {
             throw Exception("ADD New Student failed, returned null from the repository")
@@ -49,7 +48,7 @@ class StudentServiceImpl(private val repository: StudentRepository) : StudentSer
         }
     }
 
-    override suspend fun updateStudent(id: Int?, updatedStudent: InputStudentType): Boolean {
+    override suspend fun updateStudent(id: Int?, updatedStudent: StudentType): Boolean {
         if (id == null) {
             throw BadRequestException("Invalid ID for a student received")
         }

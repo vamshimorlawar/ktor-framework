@@ -1,7 +1,7 @@
 package example.com.routes
 
-import example.com.models.InputStudentType
 import example.com.models.Response
+import example.com.models.StudentType
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -18,7 +18,6 @@ fun Routing.studentRoutes() {
             call.respond(HttpStatusCode.OK, Response("All students data", students))
         }
 
-//        TODO(Is it a good practice to add api endpoints withID withName in id/{id}? Or Query param is better ?id={id})
         get("/id/{id}") {
             val id = call.parameters["id"]
             if (id == null) {
@@ -50,16 +49,15 @@ fun Routing.studentRoutes() {
         }
 
         post {
-//            TODO(How to receive one or more inputs here like (InputStudentType || InputStudentType[])?)
-            val newStudent = call.receive<InputStudentType>()
-//            TODO(How to trigger the exception with the Request Body not matching the expected format instead of auto BadRequest?)
+            val newStudent = call.receive<StudentType>()
+//            TODO(How to trigger the exception with the Request Body not matching the expected format instead of auto BadRequest? Receive any JSON from request then check manually is valid )
             val student = studentService.addStudent(newStudent)
             call.respond(HttpStatusCode.OK, Response("New Student details added", student))
         }
 
         put("/{id}") {
             val id = call.parameters["id"]
-            val updatedStudent = call.receive<InputStudentType>()
+            val updatedStudent = call.receive<StudentType>()
 
             if (id == null) {
                 call.respond(HttpStatusCode.BadRequest, "name cannot be null")

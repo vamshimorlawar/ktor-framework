@@ -1,6 +1,5 @@
 package example.com.repositories
 
-import example.com.models.InputStudentType
 import example.com.models.Student
 import example.com.models.StudentType
 import example.com.plugins.dbQuery
@@ -14,7 +13,7 @@ class StudentRepositoryImpl : StudentRepository {
         school = row[Student.school]
     )
 
-//    TODO(Need an example of directly executing SQL Queries inside the repository functions)
+    //    TODO(Need an example of directly executing SQL Queries inside the repository functions)
     override suspend fun getAllStudents(): List<StudentType> = dbQuery {
         Student.selectAll().map { toStudentType(it) }
     }
@@ -33,7 +32,7 @@ class StudentRepositoryImpl : StudentRepository {
             .singleOrNull()
     }
 
-    override suspend fun addStudent(newStudent: InputStudentType): StudentType? = dbQuery {
+    override suspend fun addStudent(newStudent: StudentType): StudentType? = dbQuery {
         val insertStmt = Student.insert {
             it[name] = newStudent.name
             it[school] = newStudent.school
@@ -41,7 +40,7 @@ class StudentRepositoryImpl : StudentRepository {
         insertStmt.resultedValues?.singleOrNull()?.let { toStudentType(it) }
     }
 
-    override suspend fun updateStudent(id: Int, updatedStudent: InputStudentType): Boolean = dbQuery {
+    override suspend fun updateStudent(id: Int, updatedStudent: StudentType): Boolean = dbQuery {
         Student.update({ Student.id eq id }) {
             it[name] = updatedStudent.name
             it[school] = updatedStudent.school

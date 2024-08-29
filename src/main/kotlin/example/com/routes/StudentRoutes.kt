@@ -50,7 +50,15 @@ fun Routing.studentRoutes() {
 
         post {
             val newStudent = call.receive<StudentType>()
-//            TODO(How to trigger the exception with the Request Body not matching the expected format instead of auto BadRequest? Receive any JSON from request then check manually is valid )
+            if (newStudent.name == null) {
+                call.respond(HttpStatusCode.BadRequest, "Student name is required in request body")
+                return@post
+            }
+            if (newStudent.school == null) {
+                call.respond(HttpStatusCode.BadRequest, "Student school is required in request body")
+                return@post
+            }
+
             val student = studentService.addStudent(newStudent)
             call.respond(HttpStatusCode.OK, Response("New Student details added", student))
         }
@@ -61,6 +69,14 @@ fun Routing.studentRoutes() {
 
             if (id == null) {
                 call.respond(HttpStatusCode.BadRequest, "name cannot be null")
+                return@put
+            }
+            if (updatedStudent.name == null) {
+                call.respond(HttpStatusCode.BadRequest, "Student name is required in request body")
+                return@put
+            }
+            if (updatedStudent.school == null) {
+                call.respond(HttpStatusCode.BadRequest, "Student school is required in request body")
                 return@put
             }
             studentService.updateStudent(id.toIntOrNull(), updatedStudent)

@@ -6,8 +6,8 @@ import org.jetbrains.exposed.sql.Table
 
 object Student : Table() {
     val id: Column<Int> = integer("id").autoIncrement()
-    val name = varchar("name", 255)
-    val school = varchar("school", 255)
+    val name = varchar("name", 255).nullable()
+    val school = varchar("school", 255).nullable()
 
     override val primaryKey = PrimaryKey(id)
 }
@@ -16,6 +16,6 @@ object Student : Table() {
 @Serializable
 data class StudentType(
     val id: Int? = null,
-    val name: String,
-    val school: String
+    val name: String? = null,
+    val school: String? = null
 )

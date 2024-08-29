@@ -1,4 +1,3 @@
-
 val kotlin_version: String by project
 val logback_version: String by project
 val koin_version: String by project
@@ -7,6 +6,7 @@ val h2_version: String by project
 val postgres_version: String by project
 val hikaricp_version: String by project
 val flyway_core_version: String by project
+val hoplite_version: String by project
 
 plugins {
     kotlin("jvm") version "2.0.10"
@@ -51,10 +51,14 @@ dependencies {
     // database migration
     implementation("org.flywaydb:flyway-core:$flyway_core_version")
 
+    // hoplite - configuration management system
+    implementation("com.sksamuel.hoplite:hoplite-yaml:$hoplite_version")
+
     testImplementation("io.ktor:ktor-server-test-host-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
 
+// TODO(How to use hoplite config here?)
 flyway {
     url = "jdbc:postgresql://localhost:5432/ktor"
     user = "postgres"

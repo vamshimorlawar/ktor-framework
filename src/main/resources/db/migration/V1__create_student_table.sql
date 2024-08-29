@@ -1,0 +1,1 @@
+create table Student(id serial primary key, name varchar(255), school varchar(255));

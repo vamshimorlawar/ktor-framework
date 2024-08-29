@@ -1,0 +1,19 @@
+database:
+  url: "jdbc:postgresql://localhost:5432/ktor"
+  user: "postgres"
+  password: "password"
+
+hikari:
+  driverClassName: "org.postgresql.Driver"
+  jdbcUrl: "jdbc:postgresql://localhost:5432/ktor"
+  username: "postgres"
+  password: "password"
+  maximumPoolSize: 3
+  isAutoCommit: false
+  transactionIsolation: "TRANSACTION_REPEATABLE_READ"
+
+flyway:
+  url: "jdbc:postgresql://localhost:5432/ktor"
+  user: "postgres"
+  password: "password"
+  baselineOnMigrate: true

@@ -42,54 +42,62 @@ class StudentServiceImpl(private val repository: StudentRepository) : StudentSer
 
     override suspend fun addStudent(newStudent: InputStudentType): StudentType {
         val student = repository.addStudent(newStudent)
-        if(student == null){
-//            TODO(What exception should be thrown here? Internal Server Error)
+        if (student == null) {
             throw Exception("ADD New Student failed, returned null from the repository")
-        }else{
+        } else {
             return student
         }
     }
 
     override suspend fun updateStudent(id: Int?, updatedStudent: InputStudentType): Boolean {
-        if(id == null){
+        if (id == null) {
             throw BadRequestException("Invalid ID for a student received")
         }
-        val response = repository.updateStudent(id, updatedStudent)
-//        TODO(How to know UPDATE failed because of the ID not found or some other reason?)
-        if(!response){
-            throw Exception("UPDATE Student failed, returned false from the repository")
-        }else{
-            return true
+        val studentExists = repository.getStudentById(id)
+        if (studentExists != null) {
+            val response = repository.updateStudent(id, updatedStudent)
+            if (!response) {
+                throw Exception("UPDATE Student failed, returned false from the repository")
+            } else {
+                return true
+            }
+        } else {
+            throw NotFoundException("Student with id $id doesn't exist")
         }
     }
 
     override suspend fun deleteStudentById(id: Int?): Boolean {
-        if(id == null){
+        if (id == null) {
             throw BadRequestException("Invalid ID for a student received")
         }
-        val response = repository.deleteStudentById(id)
-//        TODO(How to know UPDATE failed because of the ID not found or some other reason?)
-        if(!response){
-            throw Exception("DELETE Student failed, returned false from the repository")
-        }else{
-            return true
+        val student = repository.getStudentById(id)
+        if (student != null) {
+            val response = repository.deleteStudentById(id)
+            if (!response) {
+                throw Exception("DELETE Student failed, returned false from the repository")
+            } else {
+                return true
+            }
+        } else {
+            throw NotFoundException("Student with id $id doesn't exist")
         }
+
     }
 
     override suspend fun deleteStudentByName(name: String): Boolean {
         val response = repository.deleteStudentByName(name)
-        if(!response){
+        if (!response) {
             throw Exception("DELETE Student failed, returned false from the repository")
-        }else{
+        } else {
             return true
         }
     }
 
     override suspend fun deleteStudentBySchool(school: String): Boolean {
         val response = repository.deleteStudentBySchool(school)
-        if(!response){
+        if (!response) {
             throw Exception("DELETE Student failed, returned false from the repository")
-        }else{
+        } else {
             return true
         }
     }

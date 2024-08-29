@@ -2,6 +2,8 @@ package example.com.plugins
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import example.com.configurations.config
+
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -14,10 +16,9 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 fun Application.configureDatabases() {
-
-    val url = "jdbc:postgresql://localhost:5432/ktor"
-    val user = "postgres"
-    val password = "password"
+    val url = config.database.url
+    val user = config.database.user
+    val password = config.database.password
 
     Database.connect(hikari())
     val flyway = Flyway.configure().dataSource(url, user, password).load()
@@ -25,16 +26,16 @@ fun Application.configureDatabases() {
 }
 
 fun hikari(): HikariDataSource {
-    val config = HikariConfig()
-    config.driverClassName = "org.postgresql.Driver"
-    config.jdbcUrl = "jdbc:postgresql://localhost:5432/ktor"
-    config.username = "postgres"
-    config.password = "password"
-    config.maximumPoolSize = 3
-    config.isAutoCommit = false
-    config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
-    config.validate()
-    return HikariDataSource(config)
+    val hikariConfig = HikariConfig()
+    hikariConfig.driverClassName = config.hikari.driverClassName
+    hikariConfig.jdbcUrl = config.hikari.jdbcUrl
+    hikariConfig.username = config.hikari.username
+    hikariConfig.password = config.hikari.password
+    hikariConfig.maximumPoolSize = config.hikari.maximumPoolSize
+    hikariConfig.isAutoCommit = config.hikari.isAutoCommit
+    hikariConfig.transactionIsolation = config.hikari.transactionIsolation
+    hikariConfig.validate()
+    return HikariDataSource(hikariConfig)
 }
 
 suspend fun <T> dbQuery(block: () -> T): T = withContext(Dispatchers.IO) {

@@ -7,6 +7,9 @@ val postgres_version: String by project
 val hikaricp_version: String by project
 val flyway_core_version: String by project
 val hoplite_version: String by project
+val mockk_version: String by project
+val kotlin_test_version: String by project
+val kotlinx_coroutines_test: String by project
 
 plugins {
     kotlin("jvm") version "2.0.10"
@@ -54,8 +57,17 @@ dependencies {
     // hoplite - configuration management system
     implementation("com.sksamuel.hoplite:hoplite-yaml:$hoplite_version")
 
+    // test host
     testImplementation("io.ktor:ktor-server-test-host-jvm")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+
+    // mockk for tests
+    testImplementation("io.mockk:mockk:$mockk_version")
+
+    // test functionalities
+    testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlin_test_version")
+
+    // testing asynchronous
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_test")
 }
 
 // TODO(How to use hoplite config here?)

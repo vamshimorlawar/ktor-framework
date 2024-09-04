@@ -11,7 +11,10 @@ class ApplicationTest {
     fun testRoot() = testApplication {
         client.get("/").apply {
             assertEquals(HttpStatusCode.OK, status)
-            assertEquals("Hello World!", bodyAsText())
+            assertEquals(
+                "Student App with KTOR, KOIN, Postgres, Flyway using Service-Repository Pattern!",
+                bodyAsText()
+            )
         }
     }
 }

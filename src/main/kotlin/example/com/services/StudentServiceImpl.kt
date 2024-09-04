@@ -21,23 +21,6 @@ class StudentServiceImpl(private val repository: StudentRepository) : StudentSer
         }
     }
 
-    override suspend fun getStudentByName(name: String): StudentType {
-        val student = repository.getStudentByName(name)
-        if (student == null) {
-            throw NotFoundException("Student with Name $name doesn't exist")
-        } else {
-            return student
-        }
-    }
-
-    override suspend fun getStudentBySchool(school: String): StudentType {
-        val student = repository.getStudentBySchool(school)
-        if (student == null) {
-            throw NotFoundException("Student with School $school doesn't exist")
-        } else {
-            return student
-        }
-    }
 
     override suspend fun addStudent(newStudent: StudentType): StudentType {
         val student = repository.addStudent(newStudent)
@@ -81,23 +64,5 @@ class StudentServiceImpl(private val repository: StudentRepository) : StudentSer
             throw NotFoundException("Student with id $id doesn't exist")
         }
 
-    }
-
-    override suspend fun deleteStudentByName(name: String): Boolean {
-        val response = repository.deleteStudentByName(name)
-        if (!response) {
-            throw Exception("DELETE Student failed, returned false from the repository")
-        } else {
-            return true
-        }
-    }
-
-    override suspend fun deleteStudentBySchool(school: String): Boolean {
-        val response = repository.deleteStudentBySchool(school)
-        if (!response) {
-            throw Exception("DELETE Student failed, returned false from the repository")
-        } else {
-            return true
-        }
     }
 }

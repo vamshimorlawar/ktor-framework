@@ -28,26 +28,6 @@ fun Routing.studentRoutes() {
             call.respond(HttpStatusCode.OK, Response("Student by id = $id", student))
         }
 
-        get("/name/{name}") {
-            val name = call.parameters["name"]
-            if (name == null) {
-                call.respond(HttpStatusCode.BadRequest, "name cannot be null")
-                return@get
-            }
-            val student = studentService.getStudentByName(name)
-            call.respond(HttpStatusCode.OK, Response("Student by name = $name", student))
-        }
-
-        get("/school/{school}") {
-            val school = call.parameters["school"]
-            if (school == null) {
-                call.respond(HttpStatusCode.OK, "school name cannot be null")
-                return@get
-            }
-            val student = studentService.getStudentBySchool(school)
-            call.respond(HttpStatusCode.OK, Response("Student by school = $school", student))
-        }
-
         post {
             val newStudent = call.receive<StudentType>()
             if (newStudent.name == null) {
@@ -91,26 +71,6 @@ fun Routing.studentRoutes() {
             }
             studentService.deleteStudentById(id.toIntOrNull())
             call.respond(HttpStatusCode.OK, "Deleted student with id $id")
-        }
-
-        delete("/name/{name}") {
-            val name = call.parameters["name"]
-            if (name == null) {
-                call.respond(HttpStatusCode.BadRequest, "name cannot be null")
-                return@delete
-            }
-            studentService.deleteStudentByName(name)
-            call.respond(HttpStatusCode.OK, "Deleted student with name $name")
-        }
-
-        delete("/school/{school}") {
-            val school = call.parameters["school"]
-            if (school == null) {
-                call.respond(HttpStatusCode.OK, "school name cannot be null")
-                return@delete
-            }
-            studentService.deleteStudentBySchool(school)
-            call.respond(HttpStatusCode.OK, "Deleted student with school $school")
         }
     }
 }

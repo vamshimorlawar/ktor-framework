@@ -141,7 +141,7 @@ class StudentServiceImplTest {
     }
 
     @Test
-    fun `updateStudent should fail with Exception if student doesn't exists`() = runTest {
+    fun `updateStudent should fail with Not Found Exception if student doesn't exists`() = runTest {
         // Given
         val id = 999
         val updatedStudent = StudentType(name = "Vamshi", school = "IITK")
@@ -197,7 +197,7 @@ class StudentServiceImplTest {
     }
 
     @Test
-    fun `deleteStudent should fail with Exception if student doesn't exists`() = runTest {
+    fun `deleteStudent should fail with Not Found Exception if student doesn't exists`() = runTest {
         // Given
         val id = 999
         coEvery { repository.getStudentById(id) } returns null

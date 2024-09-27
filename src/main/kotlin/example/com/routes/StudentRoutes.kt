@@ -8,10 +8,11 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 import example.com.services.StudentService
+import example.com.services.StudentServiceImpl
 import io.ktor.server.request.*
 
 fun Routing.studentRoutes() {
-    val studentService by inject<StudentService>()
+    val studentService by inject<StudentServiceImpl>()
     route("/students") {
         get {
             val students = studentService.getAllStudents()

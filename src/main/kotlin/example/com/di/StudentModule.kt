@@ -8,5 +8,5 @@ import org.koin.dsl.module
 
 val studentModule = module {
     single<StudentRepository> { StudentRepositoryImpl() }
-    single<StudentService> { StudentServiceImpl(get()) }
+    single { StudentServiceImpl(get()) }
 }

@@ -20,6 +20,7 @@ provides CRUD operations for managing student data. It follows a clean architect
 - **Exception Handling**: Managed through **Ktor Status Pages**.
 - **Serialization**: Uses **kotlinx.serialization** for data serialization.
 - **Database Migrations**: Managed using **Flyway**.
+- **Test**: Written Unit Tests using **Mockk**, **Kotlin-test**, **Kotlinx-Coroutines**
 
 ## Technologies Used
 
@@ -32,6 +33,7 @@ provides CRUD operations for managing student data. It follows a clean architect
 - **Exposed**: SQL framework.
 - **Flyway**: Database migration.
 - **Hoplite**: Configuration management.
+- **Mockk**: Mockk to mock in the tests.
 
 ## Getting Started
 

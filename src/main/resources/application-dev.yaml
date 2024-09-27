@@ -1,3 +1,10 @@
+ktor:
+  application:
+    modules:
+      - example.com.ApplicationKt.module
+  deployment:
+    port: 8080
+
 database:
   url: "jdbc:postgresql://localhost:5432/ktor"
   user: "postgres"

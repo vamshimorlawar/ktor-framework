@@ -9,7 +9,9 @@ val flyway_core_version: String by project
 val hoplite_version: String by project
 val mockk_version: String by project
 val kotlin_test_version: String by project
-val kotlinx_coroutines_test: String by project
+val kotlinx_coroutines_test_version: String by project
+val ktor_server_test_version: String by project
+val kotest_version: String by project
 
 plugins {
     kotlin("jvm") version "2.0.10"
@@ -48,6 +50,9 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.ktor:ktor-server-config-yaml")
 
+    //Kotest
+    implementation("io.kotest.extensions:kotest-extensions-koin:$kotest_version")
+
     // database pooling
     implementation("com.zaxxer:HikariCP:$hikaricp_version")
 
@@ -57,8 +62,10 @@ dependencies {
     // hoplite - configuration management system
     implementation("com.sksamuel.hoplite:hoplite-yaml:$hoplite_version")
 
-    // test host
+    // ktor server test host
     testImplementation("io.ktor:ktor-server-test-host-jvm")
+
+    testImplementation("io.ktor:ktor-server-tests:$ktor_server_test_version")
 
     // mockk for tests
     testImplementation("io.mockk:mockk:$mockk_version")
@@ -67,7 +74,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlin_test_version")
 
     // testing asynchronous
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_test")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_test_version")
 }
 
 // TODO(How to use hoplite config here?)

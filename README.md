@@ -35,14 +35,24 @@ provides CRUD operations for managing student data. It follows a clean architect
 - **Hoplite**: Configuration management.
 - **Mockk**: Mockk to mock in the tests.
 
+## Monitoring
+
+- **OpenTelemetry**  ([read here](https://opentelemetry.io/docs/collector/configuration/))
+- **Prometheus**
+- **Grafana**
+- **Loki**
+- **Tempo**
+
+* Read about **KtorServerTracing** instrumented for ktor by Open Telemetry
+
 ## Getting Started
 
 ### Setup
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/student-management-api.git
-   cd student-management-api
+   git clone https://github.com/vamshimorlawar/ktor-framework.git
+   cd ktor-framework
 
 2. Configure the database settings in `application.yaml`:
    ```yaml
@@ -53,7 +63,10 @@ provides CRUD operations for managing student data. It follows a clean architect
      password: your-password
 
 3. Run the database migrations: run flywayMigrate
-4. Start the application:
+4. Start the application
+5. Run docker to set up OpenTelemetry, Prometheus
+    ```bash
+   docker compose up -d
 
 ## API Endpoints
 
@@ -70,3 +83,9 @@ The application configuration is managed using **Hoplite** and stored in applica
 ## Dependencies
 
 All project dependencies are managed via Gradle. Refer to build.gradle.kts for the complete list of dependencies.
+
+## To-Do
+
+- [ ] Task 1: Add Integration Tests (blocked at mocking)
+- [ ] Task 2: Use Containers for DB instances
+- [ ] Task 3: Add Monitoring Features (Open Telemetry, Prometheus, Grafana, Loki, Tempo)

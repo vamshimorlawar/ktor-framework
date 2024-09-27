@@ -1,0 +1,27 @@
+receivers:
+  # Data sources: traces, metrics, logs
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317  # Custom port for gRPC
+      http:
+        endpoint: 0.0.0.0:4318   # Custom port for HTTP
+
+exporters:
+  # Data sources: traces, metrics, logs
+  debug:
+    verbosity: detailed
+  prometheus:
+    endpoint: 0.0.0.0:9090
+
+service:
+  pipelines:
+    traces:
+      receivers: [ otlp ]
+      exporters: [ debug ]
+    metrics:
+      receivers: [ otlp ]
+      exporters: [ debug, prometheus ]
+    logs:
+      receivers: [ otlp ]
+      exporters: [ debug ]

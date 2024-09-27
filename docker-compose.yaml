@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: otel-collector
+    ports:
+      - "4317:4317"  # gRPC port
+      - "4318:4318"  # HTTP port
+      - "9090:9090"  # Prometheus metrics
+    volumes:
+      - ./config/otel-collector-config.yaml:/otel-local-config.yaml  # Mounting the configuration file
+    command: [ "--config", "/otel-local-config.yaml" ]  # Use the custom config file
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9091:9090"  # Expose Prometheus UI
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml  # Mount Prometheus config
+    command: [ "--config.file=/etc/prometheus/prometheus.yaml" ]

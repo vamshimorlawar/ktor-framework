@@ -26,7 +26,7 @@ provides CRUD operations for managing student data. It follows a clean architect
 
 - **Kotlin**: Programming language.
 - **Ktor**: Server framework.
-- **Koin**: Dependency injection.
+- **Koin**: Dependency injection.([read here](https://insert-koin.io/docs/reference/koin-ktor/ktor))
 - **HikariCP**: Connection pool.
 - **PostgreSQL**: Production database.
 - **H2**: Testing database.
@@ -44,6 +44,7 @@ provides CRUD operations for managing student data. It follows a clean architect
 - **Tempo**
 
 * Read about **KtorServerTracing** instrumented for ktor by Open Telemetry
+* [Open Telemetry Architecture](https://opentelemetry.io/docs/demo/architecture/)
 
 ## Getting Started
 
